@@ -8,11 +8,10 @@
               <div class="row justify-content-center">
                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                    INGRESAR  
+                    INGRESAR
                   </p>
 
                   <form class="mx-1 mx-md-4">
-
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
@@ -47,7 +46,7 @@
                       class="d-flex justify-content-center mx-4 mb-3 mb-lg-4"
                     >
                       <button
-                          type="button"
+                        type="button"
                         @click="buscarUsuario()"
                         class="btn btn-primary btn-lg"
                       >
@@ -79,8 +78,9 @@ export default {
     return {
       form: {
         username: "",
-        email:"",
+        email: "",
         password: "",
+        rol: "",
       },
       show: true,
       users: [],
@@ -100,6 +100,7 @@ export default {
         this.users.forEach((value, index) => {
           console.log(value.email);
           console.log(value.password);
+          console.log(value.rol);
 
           if (this.form.email == value.email) {
             console.log("Usuario si existe");
@@ -107,9 +108,16 @@ export default {
             if (this.form.password == value.password) {
               console.log("contraseña correcta");
 
-              window.localStorage.setItem("autenticacion", "ok");
+              if (value.rol !== "1") {
+                window.localStorage.setItem("autenticacion", "ok");
 
-              this.$router.push({ path: "/menu" });
+                this.$router.push({ path: "/menu" });
+              } else {
+                window.localStorage.setItem("autenticacion", "ok");
+                window.localStorage.setItem("autenticacionAdmin", "ok");
+
+                this.$router.push({ path: "/Usuarios" });
+              }
             }
           }
         });
